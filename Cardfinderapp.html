@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Travel Card Finder</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background: #82a9bb;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+        }
+        main {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+        .question {
+            margin-bottom: 1.5rem;
+        }
+        .question label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .question select, .question input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+        }
+        button {
+            background: #ffddd2;
+            border: none;
+            padding: 1rem;
+            color: #82a9bb;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #ffddd2;
+            color: #000;
+        }
+        .result {
+            background: #e0f7fa;
+            border: 2px solid #82a9bb;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-radius: 8px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Travel Card Finder</h1>
+    </header>
+    <main>
+        <h2>Find the Best Starter Travel Credit Card</h2>
+        <p>Answer a few questions, and we'll suggest a good credit card to begin your travel hacking journey.</p>
+
+        <div class="question">
+            <label for="travel-frequency">How often do you travel?</label>
+            <select id="travel-frequency">
+                <option value="rarely">Rarely</option>
+                <option value="several-year">A few times per year</option>
+                <option value="monthly">At least once a month</option>
+                <option value="frequent">Frequently (several times a month)</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label for="spend-category">Where do you spend the most money?</label>
+            <select id="spend-category">
+                <option value="general">General everyday spending</option>
+                <option value="dining">Dining & Restaurants</option>
+                <option value="groceries">Groceries</option>
+                <option value="travel">Travel expenses</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label for="domestic-international">Do you mainly travel domestically or internationally?</label>
+            <select id="domestic-international">
+                <option value="domestic">Mostly Domestic</option>
+                <option value="international">Mostly International</option>
+                <option value="mix">A mix of both</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label for="alliance">Do you have a preferred airline or hotel chain?</label>
+            <select id="alliance">
+                <option value="no">No preference</option>
+                <option value="chase">I like Chase Ultimate Rewards partners (e.g., United, Southwest, Hyatt)</option>
+                <option value="amex">I like American Express partners (e.g., Delta, Hilton, Marriott)</option>
+                <option value="other">I prefer flexible points with no set alliance</option>
+            </select>
+        </div>
+
+        <button id="find-card-btn">Find My Card</button>
+
+        <div id="result" class="result hidden">
+            <h3>Your Recommended Card</h3>
+            <p id="card-description"></p>
+        </div>
+    </main>
+    <footer>
+        <p><a href="index.html" style="color:#fff;text-decoration:underline;">Return to Main Site</a></p>
+    </footer>
+
+    <script>
+        const findCardBtn = document.getElementById('find-card-btn');
+        const cardDescription = document.getElementById('card-description');
+        const resultDiv = document.getElementById('result');
+
+        findCardBtn.addEventListener('click', function() {
+            const frequency = document.getElementById('travel-frequency').value;
+            const spendCat = document.getElementById('spend-category').value;
+            const travelType = document.getElementById('domestic-international').value;
+            const alliance = document.getElementById('alliance').value;
+
+            // Simple logic examples (feel free to refine):
+            let recommendation = "";
+
+            if (alliance === "chase") {
+                if (frequency === "rarely") {
+                    recommendation = "Chase Freedom Flex: Earn valuable points on everyday spend. You can upgrade to a more premium travel card later.";
+                } else {
+                    recommendation = "Chase Sapphire Preferred: Great starting card with flexible points for a variety of travel partners.";
+                }
+            } else if (alliance === "amex") {
+                if (travelType === "international") {
+                    recommendation = "Amex Gold Card: Excellent for dining and groceries, and you can transfer points to Delta or other international partners.";
+                } else {
+                    recommendation = "Amex Green Card: Good for general travel spend and flexible redemption options.";
+                }
+            } else {
+                // No alliance preference
+                if (frequency === "frequent") {
+                    recommendation = "Capital One Venture Rewards: Simple earning, flexible redemption, and good for frequent travelers.";
+                } else if (spendCat === "dining") {
+                    recommendation = "Citi Premier: Great for dining and other everyday categories, points transfer to various travel partners.";
+                } else {
+                    recommendation = "Discover it Miles: Simple and no-annual-fee option to start building miles.";
+                }
+            }
+
+            cardDescription.textContent = recommendation;
+            resultDiv.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
